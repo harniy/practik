@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    font-size: 100%;
+    background: rgba(0, 0, 0, 0.01);
+    font-family: 'Lato', sans-serif;
+    scroll-behavior: smooth;
+}
+
+.main-page{
+    font-weight: bold;
+    padding-top: 20px;
+}
+.cont-body {
+    height : 100px;
+    display: flex;
+}
+.right_side {
+    padding-top: 100px;
+}
+.category {
+    padding-top: 100px;
+}
+
+.sidebar {
+    padding-top: 100px;
+}
+
+.main-section {
+    display: flex;
+}
+.poster img{
+    width: 300px;
+    max-height: 500px;
+
+}
+.detail_view {
+    padding-top : 40px;
+}
+.detail_view ul li span{
+    font-weight: bold;
+}
+
+/*-- search --*/
+
+.search-bar {
+    height:100px;
+}
+
+.form-input {
+    width: 100%;
+    margin-top: 20px;
+}
+.btn-size{
+    width: 100%;
+}
+.btn {
+    position: relative;
+    background: #007bff8c;
+    color: white;
+    margin: 10px;
+    left: 40%;
+}
+
+/*-- пользователь --*/
+
+.user {
+    margin: 20px 0;
+}
+
+.user img {
+    margin-left: 20px;
+}
+
+.user_avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.user_ava {
+}
+#change_form {
+    display: none;
+}
+.change_form {
+    color: #007bff;
+}
+.change_form:hover {
+    color:#0056b3;
+    cursor:pointer;
+}
+
+/* comments */
+
+.comm-content{
+    width: 100%;
+}
+.comment_avatar img{
+    max-width: 50px;
+}
+
+/* contact form */
+
+.contact_form {
+    width: 100%;
+}
+.contact_form textarea {
+    width: 100%;
+}
+
+.send_btn {
+    margin-left: -20%;
+}

@@ -1,0 +1,45 @@
+{% extends 'account/base.html' %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-md-12">
+            <div class="user_profile">
+                <ul style="list-style: none;">
+                    <li ><img class='user_avatar' src="{{ user.profile.avatar.url }}" alt=""></li>
+                    <li><span>Ник:</span> <span style="font-weight:bold;">{{ user }}</span></li>
+                    <li><span>Инстаграм:</span> <span style="font-weight:bold;">{{ user.profile.insta }}</span></li>
+                    <li><span>Фейсбук:</span> <span style="font-weight:bold;">{{ user.profile.facebook }}</span></li>
+                </ul>
+
+            </div>
+            <div class="user_name">
+
+            </div>
+
+        </div>
+
+        <p class="change_form" onclick="myFunction()">Редактировать профиль</p>
+
+                        <div class="form_p" id="change_form">
+                    <div class="avatar_change" style="padding: 5px;"><span>Выберите аватар профиля...</span></div>
+                <form method="POST" action="" enctype="multipart/form-data" class="profile_form">
+                  {% csrf_token %}
+
+                  {{ form.as_p }}
+
+                  <button type="submit" style="margin-top: 5px;">Сохранить изменения</button>
+                </form>
+
+                </form>
+                    </div>
+
+              <script>
+                                        function myFunction() {
+                                          document.getElementById("change_form").style.display = "block";
+                                        }
+                                        </script>
+    </div>
+
+{% endblock content %}

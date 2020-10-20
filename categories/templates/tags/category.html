@@ -1,0 +1,26 @@
+
+<ul style="list-style:none;">
+    {% for categories in categories %}
+        {% if categories.parent.all %}
+            <li><a href="{{ categories.get_absolute_url }}">{{categories}}</a></li>
+                {% for cat in categories.parent.all %}
+                    <li style="color:grey; padding-left: 20px;">
+
+                        <a href="{{cat.get_absolute_url}}" style="color: orange;">{{cat.description}}</a>
+
+                    </li>
+
+                {% endfor %}
+        {% else %}
+            <li style="list-style:none;"><a href="{{ categories.get_absolute_url }}">{{categories}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<form action="{% url 'feedback_view' %}" class="contact_form" method="POST">
+    {% csrf_token %}
+		<input name="name" placeholder="Ваше имя?" class="name" required />
+		<input name="phone" placeholder="Ваш телефон?" class="phone" type="phone" required />
+    <textarea rows="4" cols="50" name="description" placeholder="Напишите ваше сообщение..." class="message" required></textarea>
+    <input name="submit" class="btn btn-success send_btn" type="submit" value="Отправить" />
+</form>

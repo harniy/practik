@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% load pratcic_tags %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 main-section">
+                <div class="col-md-3">
+
+                    {% get_categories %}
+
+                </div>
+
+                <div class="col-md-9" style="display:flex;">
+                    <div class="col-md-4">
+                         <div class="poster">
+                        <img src="{{main.poster.url}}" alt="">
+                    </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="detail_view">
+                            <ul style="list-style:none;">
+                                <li>Название: <span>{{ main.name }}</span></li>
+                                <li>Категория: <span>{{ main.category }}</span></li>
+                                <li>Фирма: <span>{{ main.subcategory }}</span></li>
+                                <li>Цена: <span>{{ main.price }} $</span></li>
+                                <li>Дата: <span>{{ main.date }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="container" style="display:flex;">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9">
+
+                             <div class="single-form-left">
+
+                            <!-- contact form grid -->
+
+                            <div class="contact-single" style="padding-bottom: 60px;">
+                                <h3 class="editContent com-form" style="outline: none; cursor: inherit;">
+                                    <span class="sub-tittle editContent"
+                                          style="outline: none; cursor: inherit;">Комментариев: {{ main.comment_set.count }}</span>Оставить отзыв</h3>
+                                <br><br><br>
+                                <form method="post" class="mt-4 com-form" id="formReview" action=".">
+                                    {% csrf_token %}
+                                <input type="hidden" name="comment_id" id="contactparent" value="{{ comment.id }}">
+
+                                    {{ form.as_p }}
+                                    {% if request.user.is_authenticated %}
+                                    <input type="submit" value="Отправить" class="">
+                                    {% else %}
+                                    <input type="submit" value="Отправить" class="" disabled>
+                                    {% endif %}
+                                </form>
+
+                            </div>
+
+
+
+                            <!--  //contact form grid ends here -->
+                        </div>
+
+
+                         {% for comment in main.get_comment %}
+
+                        <div class="media py-5 rew-field">
+
+                            <div class="comment_avatar">
+                            <img src="{{comment.user.profile.avatar.url }}" class="mr-3 img_com" alt="image"
+                                 style="outline: none; cursor: inherit;">
+                                </div>
+                            <div class="comm-content">
+                                <div class="nick-time" style="width:100%;display:flex;">
+
+                                <h5 class="mt-0 editContent"
+                                    style="outline: none; cursor: inherit; width:30%;">{{ comment.user|capfirst }}</h5>
+
+                                <p class='d-none d-lg-block' style="float:right;width:70%;text-align:right;">{{comment.time}}</p>
+
+                                 </div>
+                                <p class="mt-2 editContent word-space" style="outline: none; cursor: inherit; word-break: break-all; font-size: 16px">
+                                        {{ comment.content }}
+                                </p>
+                                {% if request.user.is_authenticated %}
+                                <a href="#formReview" onclick="addReview('{{comment.user}}', '{{comment.id}}')">Ответить</a>
+<!--                                <button type="button" name="button" class="reply-btn btn btn-success btn-sm"">Ответить</button>-->
+                                {% endif %}
+
+
+                     <!-- Ответы на комментарии начало-->
+
+
+                                <div class="replied-comments container my-2" id="replied-comments">
+                                    {% for reply in comment.replies.all %}
+
+                                        <div class="media-2 mt-5 editContent"-->
+                                            <div class="comment_avatar">
+                                            <img src="{{reply.user.profile.avatar.url }}" class="mr-3 img_com" alt="image"
+                                            style="outline: none; cursor: inherit;">
+                                        </div>
+                                          <div class="comm-content">
+
+                                              <div class="nick-time" style="width:100%;display:flex;">
+
+                                              <h5 class="mt-0 editContent" style="outline: none; cursor: inherit;">{{ reply.user|capfirst }}</h5>
+
+                                              <p class='d-none d-lg-block' style="float:right;width:100%;text-align:right;">{{comment.time}}</p>
+
+                                              </div>
+                                            <p class="mt-2 editContent word-space" style="outline: none; cursor: inherit; word-break: break-all;">
+
+                                                      {{ reply.content }}
+                                             </p>
+
+                                           </div>
+                                        </div>
+
+                                    {% endfor %}
+                                </div>
+                                <hr>
+
+                             <!-- Ответы на комментарии конец-->
+
+                            </div>
+                            </div>
+                                             <script>
+                          function addReview(name, id) {
+                              document.getElementById("contactparent").value = id;
+                              document.getElementById("id_content").innerText = `${name}, `
+                           }
+                     </script>
+                     {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
